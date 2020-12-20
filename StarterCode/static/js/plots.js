@@ -13,12 +13,10 @@ function buildMetadata(sample) {
         PANEL.html('')
 
         //Add key values and pairs to the panel using `Object.entries`
-        Object.defineProperties(result).forEach(([key, value]) => {
+        Object.entries(result).forEach(([key, value]) => {
             PANEL.append('h6').text(`${key.toUpperCase()}: ${value}`);
         });
 
-        //Add gauge chart
-        buildGauge(result.wfreq);
     });
 }
 
@@ -48,9 +46,9 @@ function buildCharts(sample) {
                 text: otu_labels, 
                 mode: 'markers',
                 marker: {
-                    size: sample_values,
+                    size: 10,
                     color: otu_ids,
-                    colorscale: 'Earth'
+                    colorscale: 'Mars'
                 }
             }
         ];
@@ -92,8 +90,8 @@ function init() {
                 .property('value', sample);
         });
 
-    //Pick a sample to build initial plots
-        var randomSample = sampleNames[22]
+    //Pick first sample to build initial plots
+        var randomSample = sampleNames[0]
         buildCharts(randomSample);
         buildMetadata(randomSample);
     });
