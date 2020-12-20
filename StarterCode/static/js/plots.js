@@ -77,3 +77,32 @@ function buildCharts(sample) {
 });
 }
 
+function init() {
+    //Connect to dropdown selected element
+    var selector = d3.select('#selDataset');
+
+    //Populate select options with sample numbers
+    d3.json('samples.json').then((data) => {
+        var sampleNames = data.names;
+
+        sampleNames.forEach((sample) => {
+            selector
+                .append('option')
+                .text(sample)
+                .property('value', sample);
+        });
+
+    //Pick a sample to build initial plots
+        var randomSample = sampleNames[22]
+        buildCharts(randomSample);
+        buildMetadata(randomSample);
+    });
+}
+
+function optionChanged(newSample) {
+    buildCharts(newSample);
+    buildMetadata(newSample);
+}
+
+//Initialize dashboard
+init();
